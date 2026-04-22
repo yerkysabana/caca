@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Untuk Kamu 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #ffd6e0, #ffeef3);
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .container {
+      padding: 50px 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: #ff6f91;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff3e6c;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Animasi hati */
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 5s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -10px;
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+      }
+    }
+
+    /* Slideshow */
+    .slideshow img {
+      width: 250px;
+      border-radius: 20px;
+      margin: 10px;
+      animation: fade 3s infinite;
+    }
+
+    @keyframes fade {
+      0% {opacity: 0.5;}
+      50% {opacity: 1;}
+      100% {opacity: 0.5;}
+    }
+
+    /* Typing effect */
+    .typing {
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid;
+      animation: typing 5s steps(40, end) forwards, blink 0.7s infinite;
+    }
+
+    @keyframes typing {
+      from {width: 0}
+      to {width: 100%}
+    }
+
+    @keyframes blink {
+      50% {border-color: transparent}
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- Musik -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Landing -->
+<div class="container" id="landing">
+  <h1>💌 Aku punya sesuatu...</h1>
+  <p>yang ingin aku sampaikan ke CACA Cewe aku yang paling cantik</p>
+  <button onclick="nextPage()">Klik di sini</button>
+</div>
+
+<!-- Main -->
+<div class="container hidden" id="main">
+  <h2>Cewe Aku Paling Cantik 💖</h2>
+
+  <div class="slideshow">
+    <!-- GANTI FOTO DI SINI -->
+    <img src="1.jpeg">
+    <img src="2.jpeg">
+    <img src="3.jpeg">
+  </div>
+
+  <br><br>
+
+  <h2 class="typing">
+    Maaf ya Cewe aku yang paling cantik melintasi Cakrawala. aku sadar aku salah. Tadi bener bener ga masuk notifnya...
+  </h2>
+
+  <br><br>
+  <button onclick="lastPage()">Lanjut...</button>
+</div>
+
+<!-- Ending -->
+<div class="container hidden" id="ending">
+  <h1>Aku masih berharap kita bisa baik-baik lagi 💖</h1>
+
+  <br>
+
+  <button onclick="alert('Makasih ya ❤️')">Iya, aku maafin ❤️</button>
+  <br><br>
+  <button onclick="alert('Aku bakal nunggu kamu 😢')">Aku masih butuh waktu 😢</button>
+</div>
+
+<script>
+  function nextPage() {
+    document.getElementById("landing").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+  }
+
+  function lastPage() {
+    document.getElementById("main").classList.add("hidden");
+    document.getElementById("ending").classList.remove("hidden");
+  }
+
+  // Generate hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }, 300);
+</script>
+
+</body>
+</html>
