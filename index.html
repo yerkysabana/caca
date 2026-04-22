@@ -5,7 +5,6 @@
   <title>Untuk Kamu 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Dancing+Script&display=swap" rel="stylesheet">
 
   <style>
@@ -33,7 +32,7 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
+      margin: 5px;
     }
 
     button:hover {
@@ -44,7 +43,6 @@
       display: none;
     }
 
-    /* Animasi hati */
     .heart {
       position: fixed;
       width: 20px;
@@ -64,30 +62,17 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; }
+    .heart::after { left: -10px; }
 
     @keyframes floatUp {
-      0% {
-        bottom: -10px;
-        opacity: 1;
-      }
-      100% {
-        bottom: 100%;
-        opacity: 0;
-      }
+      0% { bottom: -10px; opacity: 1; }
+      100% { bottom: 100%; opacity: 0; }
     }
 
-    /* Slideshow */
     .slideshow img {
       width: 250px;
+      max-width: 90%;
       border-radius: 20px;
       margin: 10px;
       animation: fade 3s infinite;
@@ -99,30 +84,30 @@
       100% {opacity: 0.5;}
     }
 
-    /* Typing effect */
     .typing {
-      width: 0;
-      overflow: hidden;
-      white-space: nowrap;
+      display: inline-block;
+      max-width: 90%;
+      white-space: normal;
       border-right: 3px solid;
-      animation: typing 5s steps(40, end) forwards, blink 0.7s infinite;
-    }
-
-    @keyframes typing {
-      from {width: 0}
-      to {width: 100%}
+      animation: blink 0.7s infinite;
+      font-size: 18px;
+      line-height: 1.6;
     }
 
     @keyframes blink {
       50% {border-color: transparent}
     }
 
+    @media (max-width: 600px) {
+      .typing {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<!-- Musik -->
 <audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
@@ -139,7 +124,6 @@
   <h2>Cewe Aku Paling Cantik 💖</h2>
 
   <div class="slideshow">
-    <!-- GANTI FOTO DI SINI -->
     <img src="1.jpeg">
     <img src="2.jpeg">
     <img src="3.jpeg">
@@ -147,11 +131,11 @@
 
   <br><br>
 
-  <h2 class="typing">
-    Maaf ya Cewe aku yang paling cantik melintasi Cakrawala. aku sadar aku salah. Tadi bener bener ga masuk notifnya...
-  </h2>
+  <h2 id="text" class="typing"></h2>
 
   <br><br>
+
+  <button onclick="backToLanding()">⬅️ Kembali</button>
   <button onclick="lastPage()">Lanjut...</button>
 </div>
 
@@ -161,15 +145,36 @@
 
   <br>
 
+  <button onclick="backToMain()">⬅️ Kembali</button>
+  <br><br>
+
   <button onclick="alert('Makasih ya ❤️')">Iya, aku maafin ❤️</button>
   <br><br>
   <button onclick="alert('Aku bakal nunggu kamu 😢')">Aku masih butuh waktu 😢</button>
 </div>
 
 <script>
+  const text = "Maaf ya Cewe aku yang paling cantik melintasi Cakrawala. aku sadar aku salah. Tadi bener bener ga masuk notifnya...";
+  let i = 0;
+
+  function typingEffect() {
+    document.getElementById("text").innerHTML = "";
+    i = 0;
+    type();
+  }
+
+  function type() {
+    if (i < text.length) {
+      document.getElementById("text").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, 50);
+    }
+  }
+
   function nextPage() {
     document.getElementById("landing").classList.add("hidden");
     document.getElementById("main").classList.remove("hidden");
+    typingEffect();
   }
 
   function lastPage() {
@@ -177,7 +182,18 @@
     document.getElementById("ending").classList.remove("hidden");
   }
 
-  // Generate hearts
+  function backToLanding() {
+    document.getElementById("main").classList.add("hidden");
+    document.getElementById("landing").classList.remove("hidden");
+  }
+
+  function backToMain() {
+    document.getElementById("ending").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+    typingEffect();
+  }
+
+  // hearts
   setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -185,9 +201,7 @@
     heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
+    setTimeout(() => heart.remove(), 5000);
   }, 300);
 </script>
 
